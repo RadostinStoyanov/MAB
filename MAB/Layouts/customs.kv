@@ -1,0 +1,32 @@
+# Custom image for background
+<MyImageBackground@Image>:
+    source: 'res/background.png'
+    allow_stretch: True
+    keep_ratio: False
+    keep_data: True
+
+# Custom button
+<MyButton@Button>:
+    background_color: 0,0,0,0
+    pos_hint: None, None
+    size_hint: .15, .15
+    keep_ratio: True
+
+# Custom image for buttons
+<MyImageButton@Image>:
+    allow_stretch: True
+    keep_ratio: True
+    mipmap: True
+    y: self.parent.y
+    x: self.parent.x
+    size: self.parent.size
+
+# Custom text field
+<MyTextInput@TextInput>:
+    background_normal: 'res/icon_buttons/text_background.png'
+    background_active: 'res/icon_buttons/text_background.png'
+    cursor_color: 1,140/255,0,1
+    foreground_color:1,1,1,1
+    font_size:50
+    keep_ratio: True
+    multiline: False

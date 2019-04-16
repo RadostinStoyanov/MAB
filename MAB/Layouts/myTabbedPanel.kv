@@ -1,0 +1,246 @@
+# Custom TabbedPanelItem
+<MyTabbedPanelItem>:
+    background_color: 0,0,0,0
+    size_hint: (None, 0.8)
+    keep_ratio: True
+    default_tab: def_tab
+
+    FloatLayout:
+        keep_ratio: True
+
+        BoxLayout:
+            id: new_tab_content
+            keep_ratio: True
+
+        ClosingHeader:
+            content: new_tab_content
+            panel: root
+    # Default tab for all the settings for the tests
+    TabbedPanelItem:
+        id: def_tab
+        background_normal: 'res/icon_buttons/default_tab_bar_icon.png'
+        background_down: 'res/icon_buttons/default_tab_bar_icon_pressed.png'
+        panel: root
+        keep_ratio: True
+        size:root.size
+
+        # BoxLayout for the default tab
+        BoxLayout:
+            padding: 20
+            keep_ratio: True
+            orientation:'vertical'
+
+            # BoxLayout for the settings
+            BoxLayout:
+                orientation:'horizontal'
+                size_hint: 1, 0.7
+
+                # Keeps the padding
+                Label:
+                    size_hint:0.05,1
+
+                # Vertical BoxLayout for the first column of setting
+                BoxLayout:
+                    size_hint: 0.35, 1
+                    orientation:'vertical'
+
+                    # First line:
+                    #           label 'number of arms'
+                    #           text field
+                    #           button adding arm fields in the scroll view
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        size_hint: 1, 0.1
+
+                        # Label 'number of arms'
+                        Label:
+                            text:'Number of arms'
+                            keep_ratio: True
+                            size_hint: 0.5,1
+                            font_size: 0.04 * root.height
+                            allow_stretch: True
+                            halign:'left'
+
+                        # Text field for user input(number of arms)
+                        MyTextInput:
+                            id:n_arms
+                            allow_stretch: True
+                            size_hint: 0.3,1
+                            keep_ratio: True
+                            font_size: 0.04 * root.height
+
+                            # Button fills scroll view with text fields
+                            # and label for the number of arms
+                        Button:
+                            id: drop
+                            background_color: 0,0,0,0
+                            keep_ratio: True
+                            size_hint: 0.2,1
+                            on_press: down_icon.source = down_icon_pressed.source
+                            on_release: my_grid.add_items(n_arms_bottom.text, error)
+                            on_release: down_icon.source = 'res/icon_buttons/down_icon.png'
+
+                            #  Two images for the button: one for when pressed one for when not
+                            MyImageButton:
+                                id: down_icon
+                                source: 'res/icon_buttons/down_icon.png'
+
+                            MyImageButton:
+                                id: down_icon_pressed
+                                source: 'res/icon_buttons/down_icon_pressed.png'
+
+                    # Scrollable field with labels and text fields for number of arms
+                    # MyGridLayout class in Layouts
+                    ScrollView:
+                        size_hint: 1, 0.9
+                        MyGridLayout:
+                            id:my_grid
+
+                # Keeps padding
+                Label:
+                    size_hint:0.05,1
+
+                # Grid layout for the second column of setting:
+                GridLayout:
+                    size_hint:0.35,1
+                    rows:4
+                    cols:2
+
+                    # Algorithm label
+                    Label:
+                        id: algorithm
+                        text:'Algorithm'
+                        size_hint: 0.2, None
+                        text_size: self.size
+                        font_size: 0.05 * root.height
+                        keep_ratio: True
+                        halign: 'left'
+
+                    # Algorithm name label
+                    Label:
+                        id: algorithm_txt
+                        text:'UCB1'
+                        font_size: 0.05 * root.height
+                        size_hint: None, None
+                        halign: 'left'
+
+                    # Distribution label
+                    Label:
+                        id: distribution
+                        text:'Distribution'
+                        text_size: self.size
+                        font_size: 0.05 * root.height
+                        size_hint: 0.2, None
+                        keep_ratio: True
+                        halign: 'left'
+
+                    # Distribution name label
+                    Label:
+                        id: distribution_txt
+                        text:'Bernoulli'
+                        size_hint: None, None
+                        font_size: 0.05 * root.height
+                        halign: 'left'
+
+                    # Number of experiments label
+                    Label:
+                        id: n_experiments
+                        text:'Number of experiments'
+                        text_size: self.size
+                        size_hint: 0.2, None
+                        font_size: 0.048 * root.height
+                        keep_ratio: True
+                        halign: 'left'
+
+                     # Text field for input (number of experiments)
+                    MyTextInput:
+                        id: n_experiments_txt
+                        size_hint: 0.02, None
+                        halign: 'left'
+
+                    # Number of episodes label
+                    Label:
+                        id: n_episodes
+                        text:'Number of episodes'
+                        text_size: self.size
+                        size_hint: 0.2, None
+                        font_size: 0.05 * root.height
+                        keep_ratio: True
+                        halign: 'left'
+
+                    # Text field for input (number of episodes)
+                    MyTextInput:
+                        id: n_episodes_txt
+                        size_hint: 0.02, None
+                        halign: 'left'
+
+                # Keeps padding
+                Label:
+                    size_hint:0.05,1
+
+              # BoxLayout for bottom right part of window
+            BoxLayout:
+                orientation:'horizontal'
+                size_hint: 1, 0.3
+
+                # Label for error message
+                Label:
+                    id: error
+                    allow_stretch: True
+                    text:''
+                    keep_ratio: True
+                    size_hint: 0.6, None
+                    pos_hint: {'x' : 0.01, 'center_y': 0.45}
+                    font_size: 35
+                    color: 1, 218/255, 185/255, 1
+                    halign: 'left'
+                    #text_size: self.size
+
+                 # Label showing number of arms
+                Label:
+                    id: n_arms_bottom
+                    text: n_arms.text
+                    allow_stretch: True
+                    keep_ratio: True
+                    size_hint: 0.2, None
+                    pos_hint: {'x' : 0.25, 'center_y': 0.39}
+                    font_size: 100
+                    halign: 'right'
+                    text_size: self.size
+
+                # Label showing 'X'
+                Label:
+                    id:lb1
+                    text:'x'
+                    allow_stretch: True
+                    keep_ratio: True
+                    size_hint: 0.1, None
+                    pos_hint: {'x' : 0.65, 'center_y': 0.45}
+                    font_size: 100
+
+                 # Single still slot image
+                Image:
+                    source: 'res/slot_img.png'
+                    allow_stretch: True
+                    keep_ratio: True
+                    size_hint: 0.1, 0.7
+                    pos_hint: {'x' : 0.42, 'center_y': 0.45}
+
+                # Play button
+                # Makes a new tab with a graph of the calculations
+                MyButton:
+                    id: start_btn
+                    size_hint: 0.2, 0.5
+                    pos_hint: {'x' : 0.66, 'center_y': 0.4}
+                    on_press: arrow_image2.source = arrow_image_pressed2.source
+                    on_release: root.add_header(root.make_new_tab(n_arms_bottom.text,my_grid.children,n_episodes_txt, n_experiments_txt, error))
+                    on_release: arrow_image2.source = 'res/icon_buttons/right_arrow_icon.png'
+
+                    # Two images for the button: pressed and not pressed
+                    MyImageButton:
+                        id: arrow_image_pressed2
+                        source: 'res/icon_buttons/right_arrow_icon_pressed.png'
+
+                    MyImageButton:
+                        id: arrow_image2
+                        source: 'res/icon_buttons/right_arrow_icon.png'

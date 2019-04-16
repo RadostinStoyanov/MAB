@@ -1,0 +1,56 @@
+
+
+# Second screen Layout
+<SecondScreen>:
+    id: secondScreen
+    name:"secondScreen"
+
+    # Set background
+    Screen:
+        MyImageBackground:
+            id: second_screen_background
+
+    # Box layout for the whole screen including header and tab panel
+    BoxLayout:
+        orientation: 'vertical'
+        keep_ratio: True
+
+        # Relative Layout for back button and image
+        RelativeLayout:
+            size_hint: 1, 0.15
+            height: self.parent.minimum_height
+            keep_ratio: True
+
+            # Back button (go back to home)
+            MyButton:
+                id: back_btn
+                size_hint: 0.08, 1
+                pos_hint: {'center_x' : 0.06, 'center_y': 0.5}
+                on_press: back_arrow.source = back_arrow_pressed.source
+                on_release: root.manager.current  = "home"
+                on_release: back_arrow.source = 'res/icon_buttons/back_arrow.png'
+
+                #  Two images for the button: one for when pressed one fo when not
+                MyImageButton:
+                    id: back_arrow_pressed
+                    source: 'res/icon_buttons/back_arrow_pressed.png'
+
+                MyImageButton:
+                    id: back_arrow
+                    source: 'res/icon_buttons/back_arrow.png'
+
+            # Animation (3 slot machines) on the top
+            Image:
+                source:'res/3_slots_gif.zip'
+                size_hint: 1.5, 1
+                pos_hint: {'center_x' : 0.5, 'center_y': 0.6}
+                keep_ratio: True
+                width: 50
+                anim_delay: 0.135
+                mipmap: True
+
+        # Instance of MyTabbedPanel
+        MyTabbedPanelItem:
+            id: mytabbedpanelitem
+            size_hint: 1, 0.7
+            keep_ratio: True

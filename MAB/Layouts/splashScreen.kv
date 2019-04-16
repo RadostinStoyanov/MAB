@@ -1,0 +1,19 @@
+# Splash screen for when loading information
+<SplashScreen>:
+    id: splash
+    name:"splash"
+
+    # Set background
+    Screen:
+        MyImageBackground:
+            id: splash_screen_background
+
+        # Animation (3 slot machines)
+        Image:
+            id: splash_screen_gif
+            source: 'res/3_slots_gif.zip'
+            size: self.parent.size
+            allow_stretch: True
+            keep_ratio: True
+            anim_delay: 0.11
+            mipmap: True
