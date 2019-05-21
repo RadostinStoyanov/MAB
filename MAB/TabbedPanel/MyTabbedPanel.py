@@ -143,7 +143,7 @@ class MyTabbedPanel(TabbedPanel):
                     reward_history_avg /= np.float(n_experiments)
 
                     # Plot action history results
-                    graph_action = plot_action_history(n_arms_int, action_history_sum, n_experiments, horizon)
+                    graph_action = plot_action_history(n_arms_int, arms,  action_history_sum, n_experiments, horizon)
 
                     # Clear plot. Ready for the second plot
                     plt.clf()
@@ -186,7 +186,7 @@ def plot_reward_history(reward_history_avg, n_experiments, horizon):
     return save_img()
 
 
-def plot_action_history(n_arms_int, action_history_sum, n_experiments, horizon):
+def plot_action_history(n_arms_int, arms, action_history_sum, n_experiments, horizon):
 
     # Plot action history results
     for i in range(n_arms_int):
@@ -195,7 +195,7 @@ def plot_action_history(n_arms_int, action_history_sum, n_experiments, horizon):
         plt.plot(list(np.array(range(len(action_history_sum_plot))) + 1),
                  action_history_sum_plot,
                  linewidth=2.0,
-                 label="Bandit #{}".format(i + 1))
+                 label="Bandit probability {}".format(arms[i]))
 
     plt.xlabel("Episode Number", fontsize=15)
     plt.ylabel("Bandit Action Choices (%)", fontsize=15)
